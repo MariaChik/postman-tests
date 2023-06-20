@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "e1d7c69e-3ef5-407a-9b2d-31f103abcd20",
+		"name": "Star Wars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26474904"
+	},
+	"item": [
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "/people/10/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Тело ответа содержит подстроку: 'auburn, white'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"auburn, white\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/people/10/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"people",
+								"10",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/planets/7/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"// var jsonData = pm.response.json();\r",
+									"pm.test(\"The climate is temperate\", function () {\r",
+									"    pm.expect(jsonData.climate).to.eql(\"temperate\");\r",
+									"});\r",
+									"var types_of_climate = pm.collectionVariables.get(\"Types of climate\");\r",
+									"pm.collectionVariables.set(\"Types of climate\", types_of_climate + \", \" + jsonData.climate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/planets/7/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"planets",
+								"7",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/starships/5/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ожидаю статус ответа 200\", function() {pm.response.to.have.status(200);})\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {pm.expect(pm.response.responseTime).to.be.below(200);});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {pm.response.to.have.status(\"OK\");});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/starships/5/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"starships",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Ожидаю статус ответа 200\", function() {pm.response.to.have.status(200);});",
+							"pm.test(\"В статусе содержится «OK»\", function () {pm.response.to.have.status(\"OK\");});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Neg",
+			"item": [
+				{
+					"name": "/planets/62/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ожидаю статус ответа 200\", function() {pm.response.to.have.status(200);})\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {pm.expect(pm.response.responseTime).to.be.below(200);});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {pm.response.to.have.status(\"OK\");});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/planets/62/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"planets",
+								"62",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Ожидаю статус ответа 404\", function() {pm.response.to.have.status(404);});",
+							"pm.test(\"В статусе содержится «Not Found»\", function () {pm.response.to.have.status(\"Not Found\");});"
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Время ответа меньше 200ms\", function () {pm.expect(pm.response.responseTime).to.be.below(200);});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://swapi.py4e.com/api",
+			"type": "string"
+		},
+		{
+			"key": "Types of climate",
+			"value": ""
+		}
+	]
+}
